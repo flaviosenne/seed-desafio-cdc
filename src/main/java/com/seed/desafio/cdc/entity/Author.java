@@ -1,17 +1,14 @@
 package com.seed.desafio.cdc.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -25,4 +22,14 @@ public class Author {
     private Date createdAt;
 
     private String description;
+
+    public Author(){
+
+    }
+    public Author(String name, String email, String description){
+        this.name = name;
+        this.email = email;
+        this.createdAt = new Date();
+        this.description = description;
+    }
 }

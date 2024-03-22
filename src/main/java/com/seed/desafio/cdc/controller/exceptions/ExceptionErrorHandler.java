@@ -1,5 +1,6 @@
-package com.seed.desafio.cdc.controller;
+package com.seed.desafio.cdc.controller.exceptions;
 
+import com.seed.desafio.cdc.exceptions.BadRequestException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,14 @@ public class ExceptionErrorHandler {
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         ExceptionError message = new ExceptionError("Parâmetros inválidos", new Date(),fieldErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", ")));
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_CHARSET_UTF_8);
+        return new ResponseEntity<>(message, responseHeaders, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public HttpEntity<ExceptionError> handlerBadRequestException(BadRequestException ex) {
+        ExceptionError message = new ExceptionError("Parâmetros inválidos", new Date(),ex.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_CHARSET_UTF_8);
         return new ResponseEntity<>(message, responseHeaders, HttpStatus.BAD_REQUEST);

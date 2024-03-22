@@ -1,4 +1,4 @@
-package com.seed.desafio.cdc.controller;
+package com.seed.desafio.cdc.controller.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

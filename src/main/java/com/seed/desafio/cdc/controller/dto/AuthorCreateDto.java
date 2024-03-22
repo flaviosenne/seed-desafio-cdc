@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Date;
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,11 +26,6 @@ public class AuthorCreateDto {
     private String description;
 
     public Author toModel(){
-        return Author.builder()
-                .email(this.email)
-                .name(this.name)
-                .createdAt(new Date())
-                .description(this.description)
-                .build();
+        return new Author(this.name, this.email, this.description);
     }
 }
