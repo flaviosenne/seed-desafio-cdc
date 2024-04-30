@@ -2,32 +2,28 @@ package com.seed.desafio.cdc.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 import java.util.Date;
 
-@Entity
 @Getter
-public class Author {
+@Entity
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String name;
 
-    private String email;
-
     @Column(name = "created_at")
     private Date createdAt;
 
-    private String description;
-
-    public Author(){
-
+    public Category(){
     }
-    public Author(String name, String email, String description){
+    public Category(String name){
+        Assert.notNull(name, "Nome da categoria não pode ser nullo");
         this.name = name;
-        this.email = email;
         this.createdAt = new Date();
-        this.description = description;
     }
 }
