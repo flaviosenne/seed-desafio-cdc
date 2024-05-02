@@ -1,6 +1,7 @@
 package com.seed.desafio.cdc.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Getter
 @Entity
+@Builder
 public class Category {
 
     @Id

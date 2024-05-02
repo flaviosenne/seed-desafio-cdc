@@ -1,12 +1,14 @@
 package com.seed.desafio.cdc.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Date;
 
 @Entity
 @Getter
+@Builder
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
