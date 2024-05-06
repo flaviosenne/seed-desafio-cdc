@@ -39,4 +39,12 @@ public class ExceptionErrorHandler {
         responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_CHARSET_UTF_8);
         return new ResponseEntity<>(message, responseHeaders, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public HttpEntity<ExceptionError> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ExceptionError message = new ExceptionError("Parâmetros inválidos", new Date(),ex.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_CHARSET_UTF_8);
+        return new ResponseEntity<>(message, responseHeaders, HttpStatus.BAD_REQUEST);
+    }
 }

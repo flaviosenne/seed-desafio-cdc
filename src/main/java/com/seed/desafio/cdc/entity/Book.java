@@ -1,11 +1,13 @@
 package com.seed.desafio.cdc.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.seed.desafio.cdc.utils.DateUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Entity
@@ -55,7 +57,7 @@ public class Book {
         Assert.isTrue(numberPage >= 100, "Número de páginas deve ser no mínimo 100");
         Assert.notNull(isbn, "ISBN do livro não pode ser nullo");
         Assert.notNull(datePublication, "Data de publicação do livro não pode ser nullo");
-        Assert.isTrue(datePublication.after(new Date()), "Data de publicação deve ser a frente que a data de agora");
+        Assert.isTrue(!datePublication.toInstant().plus(1, ChronoUnit.MINUTES).isBefore(DateUtils.getOnlyDateNow().toInstant().minus(3, ChronoUnit.HOURS)), "Data de publicação deve ser a frente que a data de agora");
         this.title = title;
         this.resume = resume;
         this.summary = summary;

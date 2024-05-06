@@ -26,7 +26,7 @@ public class CategoryExistsValidator implements Validator {
             return;
         }
         BookCreateDto dto = (BookCreateDto) target;
-        Optional<Category> optionalCategory = repository.findById(dto.getAuthorId());
+        Optional<Category> optionalCategory = repository.findById(dto.getCategoryId());
         if(optionalCategory.isEmpty()){
             errors.rejectValue("categoryId", "400",
                     "Essa categoria não existe na base: "+dto.getCategoryId());

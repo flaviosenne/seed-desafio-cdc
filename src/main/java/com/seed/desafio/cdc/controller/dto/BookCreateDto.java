@@ -5,16 +5,13 @@ import com.seed.desafio.cdc.controller.validators.UniqueValue;
 import com.seed.desafio.cdc.entity.Author;
 import com.seed.desafio.cdc.entity.Book;
 import com.seed.desafio.cdc.entity.Category;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -30,7 +27,7 @@ public class BookCreateDto {
     private Date createdAt;
 
     @NotNull(message = "Resumo do livro não pode ser nullo")
-    @Max(value = 500, message = "Resumo do livro deve ter no máximo 500 caracteres")
+    @Length(max = 500, message = "Resumo do livro deve ter no máximo 500 caracteres")
     private String resume;
 
     private String summary;
@@ -46,18 +43,6 @@ public class BookCreateDto {
 
     @NotNull(message = "ISBN do livro não pode ser nullo")
     private String isbn;
-
-
-    @NotNull(message = "O nome não pode ser nullo")
-    private String name;
-
-    @NotNull(message = "O email não pode ser nullo")
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "o email está com formato inválido")
-    private String email;
-
-    @NotNull(message = "A descrição não pode ser nulla")
-    @Length(max = 400, message = "A descrição não pode ser maior que 400 caracteres")
-    private String description;
 
     private String categoryId;
 
