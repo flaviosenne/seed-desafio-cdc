@@ -1,6 +1,7 @@
 package com.seed.desafio.cdc.controller.exceptions;
 
 import com.seed.desafio.cdc.exceptions.BadRequestException;
+import com.seed.desafio.cdc.exceptions.NotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -38,6 +39,14 @@ public class ExceptionErrorHandler {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_CHARSET_UTF_8);
         return new ResponseEntity<>(message, responseHeaders, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public HttpEntity<ExceptionError> handlerNotFoundException(NotFoundException ex) {
+        ExceptionError message = new ExceptionError("Registro não encontrado", new Date(),ex.getMessage());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add(CONTENT_TYPE, APPLICATION_JSON_CHARSET_UTF_8);
+        return new ResponseEntity<>(message, responseHeaders, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
