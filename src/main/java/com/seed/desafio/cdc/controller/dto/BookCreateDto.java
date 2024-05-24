@@ -49,8 +49,9 @@ public class BookCreateDto {
     private String authorId;
 
     public Book toModel(){
-        return new Book(this.title, this.resume, this.summary, this.price, this.numberPage, this.isbn, this.datePublication)
-                .withAuthor(Author.builder().id(this.authorId).build())
-                .withCategory(Category.builder().id(this.categoryId).build());
+        Category category = new Category().withId(this.categoryId);
+        Author author = new Author(this.authorId);
+        return new Book(this.title, this.resume, this.summary, this.price,
+                this.numberPage, this.isbn, this.datePublication, category, author);
     }
 }

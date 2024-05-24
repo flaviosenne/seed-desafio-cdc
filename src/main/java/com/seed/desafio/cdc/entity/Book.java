@@ -3,6 +3,7 @@ package com.seed.desafio.cdc.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.seed.desafio.cdc.utils.DateUtils;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 
 @Entity
 @Getter
+@AllArgsConstructor
 public class Book {
 
     @Id
@@ -50,7 +52,9 @@ public class Book {
     public Book(){}
 
     public Book(String title, String resume, String summary, double price, int numberPage,
-                String isbn, Date datePublication){
+                String isbn, Date datePublication, Category category, Author author){
+        Assert.notNull(category.getId(), "Categoria não pode ser nulla");
+        Assert.notNull(author.getId(), "Autor não pode ser nullo");
         Assert.notNull(title, "Título do livro não pode ser nullo");
         Assert.notNull(resume, "Resumo do livro não pode ser nullo");
         Assert.isTrue(price >= 20, "Preço deve ser no mínimo R$ 20,00");
@@ -66,16 +70,9 @@ public class Book {
         this.isbn = isbn;
         this.datePublication = datePublication;
         this.createdAt = new Date();
-    }
-
-    public Book withAuthor(Author author){
         this.author = author;
-        return this;
+        this.category = category;
     }
 
-    public Book withCategory(Category category){
-        this.category = category;
-        return this;
-    }
 
 }

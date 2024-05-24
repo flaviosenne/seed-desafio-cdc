@@ -28,3 +28,17 @@ CREATE TABLE Book (
     CONSTRAINT fk_category_book FOREIGN KEY (category_id) REFERENCES Category(id),
     CONSTRAINT fk_author_book FOREIGN KEY (author_id) REFERENCES Author(id)
 );
+
+CREATE TABLE Country (
+    id VARCHAR(36)  PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE State (
+    id VARCHAR(36)  PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    country_id VARCHAR(36) NOT NULL,
+
+    CONSTRAINT fk_country_state FOREIGN KEY (country_id) REFERENCES Country(id)
+);

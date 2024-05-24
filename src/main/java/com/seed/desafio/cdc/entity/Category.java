@@ -1,23 +1,21 @@
 package com.seed.desafio.cdc.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
 import java.util.Date;
 
-@Getter
+
 @Entity
-@Builder
-@AllArgsConstructor
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Getter
     private String id;
 
+    @Getter
     private String name;
 
     @Column(name = "created_at")
@@ -25,9 +23,22 @@ public class Category {
 
     public Category(){
     }
+
+
+    public Category(String id, String name, Date createdAt){
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+    }
+
     public Category(String name){
         Assert.notNull(name, "Nome da categoria não pode ser nullo");
         this.name = name;
         this.createdAt = new Date();
+    }
+
+    public Category withId(String id){
+        this.id = id;
+        return this;
     }
 }

@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Getter
-@Builder
-@AllArgsConstructor
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Getter
     private String id;
 
+    @Getter
     private String name;
 
     private String email;
@@ -29,6 +28,19 @@ public class Author {
     public Author(){
 
     }
+
+
+    public Author(String id){
+        this.id = id;
+    }
+    public Author(String id, String name, String email, Date createdAt, String description){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.description = description;
+    }
+
     public Author(String name, String email, String description){
         this.name = name;
         this.email = email;
